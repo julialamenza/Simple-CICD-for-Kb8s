@@ -10,7 +10,7 @@ on:
 
 
 jobs:
-  run-tests:
+  Deploying:
     runs-on: ubuntu-latest
     steps:
     - name: Clone
