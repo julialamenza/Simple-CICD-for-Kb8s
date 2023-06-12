@@ -6,6 +6,7 @@ WORKDIR /app
 
 # Copy the source code into the container
 COPY greeter.go .
+COPY go.mod .
 
 # Build the Go application
 RUN go build -o greeter .
