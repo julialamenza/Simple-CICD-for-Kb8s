@@ -16,7 +16,7 @@ spec:
         - name: go-greeter
           image: 493981950259.dkr.ecr.eu-north-1.amazonaws.com/ecr-greeter:latest
           ports:
-          - containerPort: 80
+          - containerPort: 8080
           env:
           - name: HELLO_TAG
             value: "Hello World!"
