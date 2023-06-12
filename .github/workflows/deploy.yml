@@ -48,6 +48,7 @@ jobs:
 
     - name: Deploy image to Amazon EKS
       run: |
-        kubectl kustomize  | kubectl apply -f  app/manifest/base/kustomization.yaml
+        cd app/manifest/base/
+        kubectl kustomize  | kubectl apply -f  -
 
         
