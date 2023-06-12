@@ -1,29 +1,17 @@
-# Use a Go base image
-FROM golang:1.17-alpine AS build
+FROM public.ecr.aws/docker/library/golang:1.18
 
-WORKDIR /app
+WORKDIR /usr/src/app
 
-# Copy the Go module files and download dependencies
-COPY go.mod go.sum ./
-RUN go mod download
+COPY *.go ./
+EXPOSE 80
 
-# Copy the application source code
-COPY . .
+# check security fixes
 
-# Build the Go application
-RUN go build -o main .
+RUN apt-get update && apt-get install -y --no-install-recommends git mercurial openssh-client subversion procps && rm -rf /var/lib/apt/lists/* && set -eux; apt-get update; apt-get install -y --no-install-recommends ca-certificates curl netbase wget ; rm -rf /var/lib/apt/lists/*
 
-# Use a minimal base image for the final container
-FROM alpine:latest
-RUN apk --no-cache add ca-certificates
+RUN go build -o /greeter greeter.go
 
-WORKDIR /app
+ENV HELLO_TAG="Hi World!"
+ENV VERSION=v1.20
 
-# Copy the built Go application from the previous stage
-COPY --from=build /app/main .
-
-# Expose the application's port
-EXPOSE 8080
-
-# Run the Go application
-CMD ["./main"]
+CMD [ "/greeter" ]
