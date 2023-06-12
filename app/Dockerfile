@@ -1,14 +1,12 @@
-FROM golang:1.19.2-bullseye
+FROM golang:alpine
 
-
-WORKDIR /app
+WORKDIR /go/
 
 COPY greeter.go .
 
-RUN go build -o /greeter
-
+EXPOSE 80
 
 ENV HELLO_TAG="Hi World!"
 ENV VERSION=v1.20
 
-CMD [ "/greeter" ]
+CMD [  "go", "run", "greeter.go" ]
