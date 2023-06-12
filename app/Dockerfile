@@ -1,12 +1,20 @@
-FROM golang:alpine
+# Use an official Go runtime as the base image
+FROM golang:1.16-alpine
 
-WORKDIR /go/
+# Set the working directory inside the container
+WORKDIR /app
 
+# Copy the source code into the container
 COPY greeter.go .
 
-EXPOSE 80
+# Build the Go application
+RUN go build -o greeter .
 
-ENV HELLO_TAG="Hi World!"
-ENV VERSION=v1.20
+# Expose the port on which the application will run
+EXPOSE 8080
 
-CMD [  "go", "run", "greeter.go" ]
+# Set an environment variable
+ENV HELLO_TAG=default
+
+# Run the Go application when the container starts
+CMD ["./greeter"]
