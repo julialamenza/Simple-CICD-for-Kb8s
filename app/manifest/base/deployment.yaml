@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go-greeter
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: go-greeter
+  template:
+    metadata:
+      labels:
+        app: go-greeter
+    spec:
+      containers:
+        - name: go-greeter
+          image: your-image-name:tag
+          ports:
+          - containerPort: 80
+          env:
+          - name: HELLO_TAG
+            value: "Hello World!"
+          resources:
+            limits:
+              cpu: "300m"
+              memory: "200Mi"
+            requests:
+              cpu: "30m"
+              memory: "100Mi"
