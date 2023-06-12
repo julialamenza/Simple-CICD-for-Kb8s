@@ -8,7 +8,7 @@ module "eks" {
   cluster_version = "1.25"
   subnet_ids      = module.vpc.private_subnets
   vpc_id          = module.vpc.vpc_id
-
+  #enabled_cluster_log_types       = ["audit", "api", "authenticator", "scheduler"]
   cluster_endpoint_private_access = var.eks_public_access
   cluster_endpoint_public_access  = var.eks_private_access
 
