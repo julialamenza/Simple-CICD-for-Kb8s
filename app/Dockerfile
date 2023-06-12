@@ -1,8 +1,13 @@
-FROM public.ecr.aws/docker/library/golang:1.18
+FROM golang:1.19.2-bullseye
+
 
 WORKDIR /usr/src/app
 
 COPY *.go ./
+
+# Installs Go dependencies
+RUN go mod download 
+
 EXPOSE 80
 
 # check security fixes
