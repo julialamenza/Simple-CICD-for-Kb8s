@@ -13,10 +13,6 @@ export AWS_SECRET_ACCESS_KEY=
 
 clone this repository
 
-```
-git clone https://github.com/julialamenza/kb8s-test.git
-```
-
 **Terraform Commands**
 
 ```
@@ -76,7 +72,7 @@ Make sure to add the credentials that have RBAC permissions on your EKS cluster.
 
 ### LOGS
 
-Logs are stored in AWS CloudWatch logs and the log group is created automatically following this name structure **/aws/eks/<cluster-name>/cluster**
+Logs are stored in AWS CloudWatch logs and the log group is created automatically following this name structure **/aws/eks/{cluster-name}/cluster**
 
 #### Limitations and next steps
 
@@ -84,7 +80,7 @@ The trust relationship between AWS and the Github workflow could be established 
 
 Since the pipeline is located outside the AWS environment and not part of an internal VPC, the cluster is set up with a public subnet to access the greeter application. Ideally, the pipeline would be able to access the cluster through a site-to-site VPN connection. My solution counters this limitation by locking down direct access to the cluster nodes that run inside the private subnet. Incoming requests are load balanced to the greeter pods via the Application loadbalancer that runs inside the public subnets. There is no direct access from the internet to the workloads inside the private subnets.
 
-Direct access to the Cluster endpoint has been avoided intentionally. The pipeline assumes a dedicated role with privileged access for deployment. Since the cluster administrator access is automatically given to the cluster creator principal, only the pipeline is given **system:masters access**. The public endpoint has been enabled to retrieve the greeter url at the end of the deployment.
+The pipeline assumes a IAM user with privileged access for deployment. Since the cluster administrator access is automatically given to the cluster creator principal, only the pipeline is given **system:masters access**. The public endpoint has been enabled to retrieve the greeter url at the end of the deployment.
 
 If this cluster would be shared among several development teams, namespaces should be assigned with resource quotas to ensure that single namespaces does not claim unbalanced usage of the cluster resources. Also, there should be a fine-grained structure of user groups that are mirrored through RBAC inside the cluster following the principle of least privilege.
 
