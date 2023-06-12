@@ -3,9 +3,9 @@ FROM golang:1.19.2-bullseye
 
 WORKDIR /app
 
-COPY *.go ./
+COPY greeter.go .
 
-RUN go build -o greeter.go
+RUN go build -o /greeter
 
 
 ENV HELLO_TAG="Hi World!"
