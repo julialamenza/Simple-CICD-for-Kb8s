@@ -48,7 +48,7 @@ jobs:
 
     - name: Deploy image to Amazon EKS
       run: |
-        envsubst < app/manifest/kustomization.yaml > k8s/kustomization.yaml
+        envsubst < app/manifest/base/kustomization.yaml > k8s/kustomization.yaml
         kubectl kustomize k8s | kubectl apply -f -
 
         
