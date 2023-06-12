@@ -15,9 +15,6 @@ jobs:
     steps:
     - name: Clone
       uses: actions/checkout@v2
-    steps:
-    - name: Check out code
-      uses: actions/checkout@v2
 
     - name: Install kubectl
       uses: azure/setup-kubectl@v1
