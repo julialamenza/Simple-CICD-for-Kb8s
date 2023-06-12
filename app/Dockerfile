@@ -1,20 +1,15 @@
 FROM golang:1.19.2-bullseye
 
 
-WORKDIR /usr/src/app
+WORKDIR /app
+
+COPY go.mod ./
+RUN go mod download
 
 COPY *.go ./
 
-# Installs Go dependencies
-RUN go mod download 
+RUN go build -o /greeter
 
-EXPOSE 80
-
-# check security fixes
-
-RUN apt-get update && apt-get install -y --no-install-recommends git mercurial openssh-client subversion procps && rm -rf /var/lib/apt/lists/* && set -eux; apt-get update; apt-get install -y --no-install-recommends ca-certificates curl netbase wget ; rm -rf /var/lib/apt/lists/*
-
-RUN go build -o /greeter greeter.go
 
 ENV HELLO_TAG="Hi World!"
 ENV VERSION=v1.20
